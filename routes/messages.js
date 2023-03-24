@@ -5,8 +5,10 @@ const Message = require('../models/Message')
 router.post("/" , async (req,res)=>{
     const newMessage = new Message(req.body);
     try{
-        const savedMessage = await newMessage.save();
-        res.status(200).json(savedMessage)
+        if(newMessage.text.length > 0){
+            const savedMessage = await newMessage.save();
+            res.status(200).json(savedMessage)
+        }
     }catch(err){
         res.status(500).json(err);
     }
